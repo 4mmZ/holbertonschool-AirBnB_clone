@@ -1,0 +1,27 @@
+body div section.filters {
+    color: white;
+    height: 70px;
+    width: 100%;
+    border: 1px#DDDDDD;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+}
+body div section button.filters-button {
+    height: 48px;
+    width: 20%;
+    border-radius: 4px;
+    background-color: #FF5A5F;
+    color: #FFFFFF;
+    font-size: 18px;
+    text-transform: uppercase;
+    transition: opacity 0.3s;
+    margin-right: 30px;
+    margin-left: auto;
+}
+
+body div section button.filters-button:hover {
+    opacity: 0.9;
+}
