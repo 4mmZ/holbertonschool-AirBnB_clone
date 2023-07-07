@@ -2,6 +2,7 @@
 """Import modules cmd and BaseModel class"""
 import cmd
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 """Console for AirBnB clone"""
 
 
@@ -45,7 +46,8 @@ class HBNBCommand(cmd.Cmd):
         if arg not in HBNBCommand.classes:
             print("** class doesn't exist **")
         else:
-            obj = globals()[arg]()
+            obj = HBNBCommand.classes[arg]()
+            FileStorage.new(obj)
             print("{}".format(obj.id))
 
     def do_show(self, args):
@@ -59,6 +61,12 @@ class HBNBCommand(cmd.Cmd):
 
             elif len(arg_list) < 2:
                 print("** instance id missing **")
+            
+            obj_key = arg_list[0] + "." + arg_list[1]
+            if obj_key in FileStorage.__objects.keys():
+                print(f"FileStorage.__objects[obj_key]")
+            else:
+                print("** no instance found **")
 
     def do_destroy(self, args):
         """Recieves a class name and an object id as prompt.
@@ -72,11 +80,17 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
             elif len(arg_list) < 2:
                 print("** instance id missing **")
+            
+
 
     def do_all(self, arg):
         """Prints all the instances from the class name recieved as prompt"""
         if arg not in HBNBCommand.classes:
             print("** class doesn't exist **")
+        else:
+            for key, value in FileStorage.__objects.items():
+                print(f"value", end="")
+            print()
 
     def do_update(self, args):
         """Updates an object and saves the changes to the JSON file
@@ -98,6 +112,14 @@ class HBNBCommand(cmd.Cmd):
                 print("** attribute name missing **")
             elif len(arg_list) < 4:
                 print("** value missing **")
+            else:
+                obj_key = arg_list[0] + "." + arg_list[1]
+                if obj_key in FileStorage.__objects.keys():
+                    obj = FileStorage.__objects[obj_key]
+                    obj.arg_list[2] = arg_list[3]
+                    FileStorage.save()
+                else:
+                    print("** no instance found **")
 
 
 if __name__ == '__main__':
