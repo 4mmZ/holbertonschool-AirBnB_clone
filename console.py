@@ -2,7 +2,6 @@
 """Import modules cmd and BaseModel class"""
 import cmd
 from models.base_model import BaseModel
-from models.engine.file_storage import FileStorage
 """Console for AirBnB clone"""
 
 
@@ -10,7 +9,7 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbnb) '
     file = None
-
+    classes = {"BaseModel" : BaseModel}
     def do_quit(self, arg):
         """Quits the program with prompt 'quit'"""
         return True
@@ -43,13 +42,11 @@ class HBNBCommand(cmd.Cmd):
         if arg is None:
             print("** class name missing **")
 
-        try:
-            eval(arg)
-        except NameError:
+        if arg not in HBNBCommand.classes:
             print("** class doesn't exist **")
-
-        obj = globals()[arg]()
-        print("{}".format(obj.id))
+        else:
+            obj = globals()[arg]()
+            print("{}".format(obj.id))
 
     def do_show(self, args):
         """Shows the object with the id recieved as prompt"""
@@ -57,12 +54,10 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             arg_list = args.split()
-            try:
-                eval(arg_list[0])
-            except NameError:
+            if arg_list[0] not in HBNBCommand.classes:
                 print("** class doesn't exist **")
 
-            if len(arg_list) < 2:
+            elif len(arg_list) < 2:
                 print("** instance id missing **")
 
     def do_destroy(self, args):
@@ -73,18 +68,14 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             arg_list = args.split()
-            try:
-                eval(arg_list[0])
-            except NameError:
+            if arg_list[0] not in HBNBCommand.classes:
                 print("** class doesn't exist **")
-        if len(arg_list) < 2:
-            print("** instance id missing **")
+            elif len(arg_list) < 2:
+                print("** instance id missing **")
 
     def do_all(self, arg):
         """Prints all the instances from the class name recieved as prompt"""
-        try:
-            eval(arg)
-        except NameError:
+        if arg not in HBNBCommand.classes:
             print("** class doesn't exist **")
 
     def do_update(self, args):
@@ -99,11 +90,9 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             arg_list = args.split()
-            try:
-                eval(arg_list[0])
-            except NameError:
+            if arg_list[0] not in HBNBCommand.classes:
                 print("** class doesn't exist **")
-            if len(arg_list) < 2:
+            elif len(arg_list) < 2:
                 print("** instance id missing **")
             elif len(arg_list) < 3:
                 print("** attribute name missing **")
