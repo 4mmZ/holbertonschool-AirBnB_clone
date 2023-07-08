@@ -8,7 +8,10 @@ class TestBaseModel(unittest.TestCase):
 
     def test_base_model_init(self):
         obj = BaseModel()
+        self.assertIsInstance(obj, BaseModel)
 
+    def test_base_model_print(self):
+        obj = BaseModel()
         save_output = StringIO
         sys.stdout = save_output
         print(obj)
@@ -88,5 +91,16 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(obj_dict, {})
         """insert dict"""
 
-if __name__ == '__main__':
-    unittest.main()            
+    def test_base_init_kwargs(self):
+        obj_1 = BaseModel()
+        obj_dict = obj_1.to_dict()
+        obj_2 = BaseModel(**obj_dict)
+        self.assertIsInstance(obj_2, BaseModel)
+        self.assertEqual(obj_2.id, obj_1.id)
+        self.assertEqual(obj_2.created_at, obj_1.created_at)
+        self.assertEqual(obj_2.updated_at, obj_1.updated_at)
+        self.assertIsNot(obj_2, obj_1)
+
+    def test_base_init_kwargs_Typerror(self):
+        obj_1 = BaseModel()
+        obj_2 = BaseModel(obj_1)
