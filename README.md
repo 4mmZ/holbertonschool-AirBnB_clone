@@ -4,7 +4,7 @@ This repository contains **Holberton School's** AirBnB clone project, which is t
 ## Table of contents
 * [About](#about)
 * [Resources](#resources)
-* [Project requirements](#project_requirements)
+* [Project requirements](#project)
 * [Files](#files)
 * [Usage](#usage)
 * [Authors](#authors)
@@ -16,8 +16,6 @@ The purpose of this project is that us students are able to apply all the knowle
 -   A website (the front-end) that shows the final product to everybody: static and dynamic.
 -   A database or files that store data (data = objects).
 -   An API that provides a communication interface between the front-end and your data (retrieve, create, delete, update them).
-
-## Resources
 
 ## Resources
 * [Python's cmd module](https://docs.python.org/3.4/library/cmd.html)
